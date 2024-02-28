@@ -1,24 +1,24 @@
-import { AbilifyFactory } from "./payments/abilify/factory";
-import { BaseFactory } from "./payments/baseFactory";
-import { StripeFactory } from "./payments/stripe/factory";
+import { AbilifyPaymentCreator } from "./payments/abilify/creator";
+import { BasePaymentCreator } from "./payments/basePaymentCreator";
+import { StripePaymentCreator } from "./payments/stripe/creator";
 
 enum PaymentType {
   Abilify,
   Stripe,
 }
 
-const abilifyFactory = new AbilifyFactory();
-const stripeFactory = new StripeFactory();
+const abilifyPaymentCreator = new AbilifyPaymentCreator();
+const stripePaymentCreator = new StripePaymentCreator();
 
-const factoryMapper: Record<PaymentType, BaseFactory> = {
-  [PaymentType.Abilify]: abilifyFactory,
-  [PaymentType.Stripe]: stripeFactory,
+const creatorMapper: Record<PaymentType, BasePaymentCreator> = {
+  [PaymentType.Abilify]: abilifyPaymentCreator,
+  [PaymentType.Stripe]: stripePaymentCreator,
 };
 
 const submitPayment = (type: PaymentType, cost: number) => {
-  const factory = factoryMapper[type];
+  const creator = creatorMapper[type];
 
-  const payment = factory.createPayment();
+  const payment = creator.createPayment();
 
   payment.submit(cost);
 };
