@@ -1,0 +1,16 @@
+{
+  "name": "factory-method",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "author": "Jorge Lomas Rodríguez",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.21",
+    "typescript": "^5.3.3"
+  }
+}
