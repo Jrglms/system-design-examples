@@ -1,27 +1,13 @@
-import { AbilifyPaymentCreator } from "./payments/abilify/creator";
-import { BasePaymentCreator } from "./payments/basePaymentCreator";
-import { StripePaymentCreator } from "./payments/stripe/creator";
+import { RobotInterface, TeaType } from "./robot-interface";
+import { Tea } from "./tea/tea";
 
-enum PaymentType {
-  Abilify,
-  Stripe,
+const robotInterface = new RobotInterface();
+
+let tea: Tea;
+if (new Date().getDate() % 2 === 1) {
+  tea = robotInterface.makeTea(TeaType.Black);
+} else {
+  tea = robotInterface.makeTea(TeaType.Green);
 }
 
-const abilifyPaymentCreator = new AbilifyPaymentCreator();
-const stripePaymentCreator = new StripePaymentCreator();
-
-const creatorMapper: Record<PaymentType, BasePaymentCreator> = {
-  [PaymentType.Abilify]: abilifyPaymentCreator,
-  [PaymentType.Stripe]: stripePaymentCreator,
-};
-
-const submitPayment = (type: PaymentType, cost: number) => {
-  const creator = creatorMapper[type];
-
-  const payment = creator.createPayment();
-
-  payment.submit(cost);
-};
-
-submitPayment(PaymentType.Abilify, 100);
-submitPayment(PaymentType.Stripe, 100);
+tea.drink();
